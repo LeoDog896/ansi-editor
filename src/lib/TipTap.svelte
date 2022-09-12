@@ -6,6 +6,10 @@
 	import { Italic } from '@tiptap/extension-italic';
 	import { Strike } from '@tiptap/extension-strike';
 	import { Text } from '@tiptap/extension-text';
+  import { Document } from '@tiptap/extension-document';
+  import { TextStyle } from '@tiptap/extension-text-style';
+  import { Color } from '@tiptap/extension-color'
+  import { Paragraph } from '@tiptap/extension-paragraph'
 
 	let element: HTMLDivElement;
 	let editor: Editor;
@@ -13,7 +17,7 @@
 	onMount(() => {
 		editor = new Editor({
 			element: element,
-			extensions: [History, Bold, Italic, Strike, Text],
+			extensions: [History, Bold, Italic, Strike, Text, Document, TextStyle, Color, Paragraph],
 			content: 'Hello World! 🌍️',
 			onTransaction: () => {
 				// force re-render so `editor.isActive` works as expected
@@ -31,19 +35,19 @@
 
 {#if editor}
 	<button
-		on:click={() => editor.chain().focus().setBold().run()}
+		on:click={() => editor.chain().focus().toggleBold().run()}
 		class:active={editor.isActive('bold')}
 	>
 		B
 	</button>
 	<button
-		on:click={() => editor.chain().focus().setItalic().run()}
+		on:click={() => editor.chain().focus().toggleItalic().run()}
 		class:active={editor.isActive('italic')}
 	>
 		I
 	</button>
 	<button
-		on:click={() => editor.chain().focus().setStrike().run()}
+		on:click={() => editor.chain().focus().toggleStrike().run()}
 		class:active={editor.isActive('strike')}
 	>
 		S
