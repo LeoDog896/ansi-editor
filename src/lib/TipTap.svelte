@@ -6,10 +6,10 @@
 	import { Italic } from '@tiptap/extension-italic';
 	import { Strike } from '@tiptap/extension-strike';
 	import { Text } from '@tiptap/extension-text';
-  import { Document } from '@tiptap/extension-document';
-  import { TextStyle } from '@tiptap/extension-text-style';
-  import { Color } from '@tiptap/extension-color'
-  import { Paragraph } from '@tiptap/extension-paragraph'
+	import { Document } from '@tiptap/extension-document';
+	import { TextStyle } from '@tiptap/extension-text-style';
+	import { Color } from '@tiptap/extension-color';
+	import { Paragraph } from '@tiptap/extension-paragraph';
 
 	let element: HTMLDivElement;
 	let editor: Editor;
