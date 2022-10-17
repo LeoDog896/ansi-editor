@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { parse } from "./parse"
 	import { onMount, onDestroy } from 'svelte';
 	import { Editor } from '@tiptap/core';
 	import { History } from '@tiptap/extension-history';
@@ -14,7 +15,7 @@
 	let element: HTMLDivElement;
 	let editor: Editor;
 
-	onMount(() => {
+	onMount(async () => {
 		editor = new Editor({
 			element: element,
 			extensions: [History, Bold, Italic, Strike, Text, Document, TextStyle, Color, Paragraph],
@@ -33,30 +34,50 @@
 	});
 </script>
 
-{#if editor}
-	<button
-		on:click={() => editor.chain().focus().toggleBold().run()}
-		class:active={editor.isActive('bold')}
-	>
-		B
-	</button>
-	<button
-		on:click={() => editor.chain().focus().toggleItalic().run()}
-		class:active={editor.isActive('italic')}
-	>
-		I
-	</button>
-	<button
-		on:click={() => editor.chain().focus().toggleStrike().run()}
-		class:active={editor.isActive('strike')}
-	>
-		S
-	</button>
-{/if}
-
-<div bind:this={element} />
+<div class="container">
+  {#if editor}
+    <button
+      on:click={() => editor.chain().focus().toggleBold().run()}
+      class:active={editor.isActive('bold')}
+    >
+      B
+    </button>
+    <button
+      on:click={() => editor.chain().focus().toggleItalic().run()}
+      class:active={editor.isActive('italic')}
+    >
+      I
+    </button>
+    <button
+      on:click={() => editor.chain().focus().toggleStrike().run()}
+      class:active={editor.isActive('strike')}
+    >
+      S
+    </button>
+    <button
+      on:click={() => editor.chain().focus().setColor("#eee").run()}
+      class:active={editor.isActive('color')}
+    >
+      C
+    </button>
+  {/if}
+  <div class="editor" bind:this={element} />
+  <p>{JSON.stringify(editor?.getJSON())}</p>
+</div>
 
 <style>
+  .container {
+    padding: 2rem;
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+    color: white;
+    background-color: black;
+    font-family: monospace;
+  }
+  .editor {
+    font-family: monospace;
+  }
+  
 	button.active {
 		background: black;
 		color: white;
